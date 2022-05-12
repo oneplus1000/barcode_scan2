@@ -60,17 +60,20 @@ class ChannelHandler(private val activityHelper: ActivityHelper
         if (methodChannel != null) {
             stopListening()
         }
-
-        methodChannel = MethodChannel(messenger, "de.mintware.barcode_scan").apply {
-            setMethodCallHandler(this@ChannelHandler)
+        if(messenger != null ) {
+            methodChannel = MethodChannel(messenger!!, "de.mintware.barcode_scan").apply {
+                setMethodCallHandler(this@ChannelHandler)
+            }
         }
 
         if (eventChannel != null) {
             stopListening()
         }
 
-        eventChannel = EventChannel(messenger, "de.mintware.barcode_scan/events").apply {
-            setStreamHandler(this@ChannelHandler)
+        if(messenger != null) {
+            eventChannel = EventChannel(messenger!!, "de.mintware.barcode_scan/events").apply {
+                setStreamHandler(this@ChannelHandler)
+            }
         }
     }
 
